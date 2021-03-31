@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useAtom } from "jotai";
+import { filteredPostAtom, postsAtom, queriedPostAtom, todoAtom } from "./atoms/index";
 
-function App() {
+const App = () => {
+
+  const [ todo, setTodo ] = useAtom(todoAtom);
+  const [ posts ] = useAtom(postsAtom);
+  const [ queriedPost, setQueriedPost ] = useAtom(queriedPostAtom);
+  const [ filteredPost ] = useAtom(filteredPostAtom);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>
+        { todo }
+      </h1>
+      <input type="text" value={ todo } onChange={ e => setTodo(e.target.value) } />
+      <hr />
+      <input type="text" value={ queriedPost } onChange={ e => setQueriedPost(e.target.value) } />
+      <pre>
+        { filteredPost ? JSON.stringify(filteredPost, null, 3) : JSON.stringify(posts, null, 3) }
+      </pre>
     </div>
   );
-}
+};
 
 export default App;
